@@ -1,0 +1,345 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: #f3f3f3; /* Light gray background, common in Jotform */
+    margin: 0;
+    padding: 30px 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+  }
+  
+  .container {
+    max-width: 950px; /* Increased from 800px to give more room for steps */
+    margin: 30px auto;
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  
+  .page {
+    display: none;
+  }
+  
+  .page.active {
+    display: block;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 1em; /* Explicitly set font size for main question labels (e.g., 16px if body is 16px) */
+  }
+  
+  .form-group {
+    margin-bottom: 25px; /* Good spacing between question groups */
+  }
+  
+  .form-group p {
+    font-size: 1.1rem; /* Clear and readable question text */
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .form-group .subtitle {
+    font-size: 0.9em;
+    color: #777;
+    font-style: italic;
+    margin-top:-4px;
+    margin-bottom: 10px;
+    font-weight: normal;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 8px; /* Space below labels */
+    font-size: 1rem;
+    color: #555;
+    font-weight: normal;
+  }
+  
+  .form-group input[type="text"],
+  .form-group input[type="tel"],
+  .form-group input[type="date"],
+  .form-group input[type="email"],
+  .form-group select,
+  .form-group textarea,
+  .form-group input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    margin-top: 5px;
+  }
+  
+  .form-group input[type="radio"],
+  .form-group input[type="checkbox"] {
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  
+  .form-group .checkbox-group label {
+    display: inline-block; /* Keep checkboxes and labels on the same line */
+    margin-right: 15px;
+    margin-bottom: 5px;
+  }
+
+  .radio-group label[for],
+  .checkbox-group label[for] {
+      font-weight: normal; /* Labels for options are not bold */
+      display: inline-block; /* Allow labels to sit next to radios/checkboxes */
+      margin-left: 5px;
+      margin-right: 15px;
+      font-size: 0.95em; /* Slightly smaller font size for the options for visual hierarchy */
+  }
+  
+
+  .radio-group > label,
+  .checkbox-group > label {
+      margin-bottom: 10px; /* More space below the question label to separate from options */
+  }
+
+  .radio-group input[type="radio"],
+  .checkbox-group input[type="radio"],
+  .radio-group input[type="checkbox"],
+  .checkbox-group input[type="checkbox"] {
+      margin-right: 8px; /* Space between input and its label */
+      vertical-align: middle; /* Align radios/checkboxes with text */
+  }
+  
+  .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .btn-primary {
+    background-color: #007bff; /* Standard blue primary button */
+    color: #fff;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  
+  .alert {
+    padding: 12px 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+  }
+  
+  .alert-warning {
+    color: #8a6d3b;
+    background-color: #fdf2e7;
+    border-color: #faebcc;
+  }
+  
+  h2 {
+    color: #333;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    font-size: 1.75rem;
+  }
+  
+  h3 {
+    color: #555;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+  }
+  
+  #welcome ul li h4 {
+    margin-bottom: 0;
+  }
+
+  .page button.btn + button {
+    margin-left: 10px; /* Adds space to the left of the second button */
+  }
+
+
+/* Styling for the overall summary container */
+#application-summary-container {
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    margin-bottom: 30px; /* Space between summary and buttons */
+    border: 1px solid #eee;
+  }
+  
+  /* Styling for individual summary sections (including the new combined one) */
+  .summary-section h3 {
+  color: #007bff; /* Primary blue color, matching the buttons */
+  font-weight: bold; /* Ensure they are bold for prominence */
+  margin-bottom: 15px; /* Add some space below the header */
+}
+  
+  .summary-section:last-child {
+    margin-bottom: 0;
+  }
+  
+  /* Overall section heading (e.g., "Core Application Details") */
+  .summary-section h3 {
+    color: #0056b3;
+    border-bottom: 2px solid #0056b3;
+    padding-bottom: 8px;
+    margin-bottom: 15px; /* Space below the main heading */
+    font-size: 1.2em;
+  }
+  
+  /* New: Sub-headings within a combined section (e.g., "Eligibility Details") */
+  .summary-section h4 {
+    color: #333; /* A slightly darker color for sub-headings */
+    font-size: 1.1em;
+    margin-top: 20px; /* Space above sub-heading */
+    margin-bottom: 10px; /* Space below sub-heading */
+  }
+  
+  /* Optional: Subtle divider within combined section */
+  .summary-divider {
+    border: 0;
+    border-top: 1px dashed #ccc; /* Dashed line for subtle separation */
+    margin: 20px 0; /* Space above and below the divider */
+  }
+  
+  
+  /* New: Grid layout for summary items within sections */
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 10px 20px;
+  }
+  
+  .summary-item {
+    word-wrap: break-word;
+    hyphens: auto;
+  }
+  
+  .summary-item.full-width {
+    grid-column: 1 / -1;
+  }
+  
+  .summary-item strong {
+    display: inline-block;
+    margin-right: 5px;
+    min-width: 120px;
+    vertical-align: top;
+  }
+  
+  .summary-item span {
+    display: inline-block;
+    vertical-align: top;
+  }
+  
+  /* Optional: Adjust default form group spacing if needed */
+  .form-group {
+      margin-bottom: 15px;
+  }
+
+  /* Progress Steps Styling */
+  .progress-steps {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Align labels at the top if they wrap */
+    padding: 15px 10px; /* Increased horizontal padding for overall stepper */
+    margin-bottom: 25px; /* Slightly more space below the stepper */
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    overflow-x: auto; /* Enable horizontal scrolling for smaller screens */
+    -webkit-overflow-scrolling: touch; /* For smoother scrolling on iOS */
+  }
+  
+  .step {
+    flex: 1; /* Each step takes equal space */
+    text-align: center;
+    position: relative;
+    padding: 0 10px; /* Increased padding inside each step for more breathing room */
+    color: #888;
+    font-size: 0.9em; /* Slightly increased font size for labels */
+    min-width: 120px; /* Significantly increased minimum width for each step */
+  }
+  
+  .step-circle {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: #ccc;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 8px auto;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border: 2px solid #ccc;
+    position: relative; /* Added: Important for z-index to work correctly */
+    z-index: 1; /* Added: Ensures the circle is always on top of the line */
+  }
+  
+  .step-label {
+    font-weight: 600;
+    white-space: normal; /* Allow labels to wrap onto multiple lines if needed */
+    /* Remove overflow: hidden and text-overflow: ellipsis if you allow wrapping */
+    line-height: 1.3; /* Adjust line height for wrapped text */
+    margin-top: 5px; /* Space between circle and label if label wraps */
+  }
+  
+  
+  /* Line connecting steps (using pseudo-elements) */
+  .step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 19.5px; /* Adjusted: (Circle Height / 2) + Border Width = (35/2) + 2 = 17.5 + 2 = 19.5px */
+    left: calc(50% + 19.5px); /* Adjusted: Start after half the circle's total diameter */
+    width: calc(100% - 39px); /* Adjusted: Total width minus the full circle's total diameter (35px + 2*2px border = 39px) */
+    height: 2px;
+    background-color: #ccc;
+    z-index: 0; /* Ensures the line is behind the circle */
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Active Step Styling */
+  .step.active .step-circle {
+    background-color: #007bff; /* Active circle color */
+    border-color: #007bff;
+    color: #fff;
+  }
+  
+  .step.active .step-label {
+    color: #007bff; /* Active label color */
+  }
+  
+  /* Line connecting active steps (using a slightly darker color for 'completed' feel) */
+  .step.active ~ .step::after {
+    background-color: #007bff; /* Line for steps already passed or current */
+  }
+  
+  /* Completed Step Styling (optional, if you want a different look for fully passed steps) */
+  .step.completed .step-circle {
+    background-color: #28a745; /* Green for completed steps */
+    border-color: #28a745;
+  }
+  
+  .step.completed .step-label {
+    color: #28a745;
+  }
+  
+  .step.completed::after { /* Line after a completed step */
+    background-color: #28a745 !important; /* Ensure line is green if step is completed */
+  }
