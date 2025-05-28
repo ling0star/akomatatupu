@@ -9,28 +9,16 @@ const pageToStepMap = {
     'eligibility': 'step-eligibility-category',
     'eligibility-success': 'step-eligibility-category', // Maps to the same category
     'basic-details': 'step-personal-details-category',
+    'commitment-kaupapa': 'step-education-experience-category', 
     'school-referral-details': 'step-education-experience-category', // Maps to the same category
     'cv-education': 'step-education-experience-category',
     'preferred-subjects': 'step-teaching-preferences-category',
-    'commitment-kaupapa': 'step-teaching-preferences-category', // Maps to the same category
+    'locations': 'step-teaching-preferences-category',
     'review-application': 'step-review-submit-category',
     'confirmation': 'step-review-submit-category' // Maps to the same category
 };
 
-// Add this new function:
-function navigateFromCVEducation() {
-    // ... validation code ...
-    if (q4aIsYes || q4bIsYes) {
-        showPage('school-referral-details');
-    } else {
-        showPage('preferred-subjects'); // Skip referral details if not required
-    }
-}
 
-function navigateFromBasicDetails() {
-    // ... validation code ...
-    showPage('cv-education');
-}
 
 function showPage(pageId) {
     const pages = document.querySelectorAll('.page');
@@ -46,10 +34,6 @@ function showPage(pageId) {
         step.classList.remove('active');
         step.classList.remove('completed'); // Clear any previous 'completed' states
     });
-
-    if (pageId === 'school-referral-details') {
-        toggleSchoolReferralDetails();
-    }
 
     const currentStepElement = document.getElementById(activeStepCategoryId);
 
@@ -72,11 +56,9 @@ function showPage(pageId) {
     }
 }
 
-
-
 function toggleRegistrationQuestion() {
     const q2Yes = document.querySelector('input[name="q2"][value="yes"]');
-    const registrationGroup = document.getElementById('registration-status-group');
+    const registrationGroup = document.getElementById('q2-group-container');
     if (q2Yes && q2Yes.checked) {
         registrationGroup.style.display = 'block';
     } else {
@@ -85,12 +67,21 @@ function toggleRegistrationQuestion() {
 }
 
 function checkEligibility() {
+    const messageDisplay = document.getElementById('eligibility-message-display');
+
+    // Clear previous messages and reset style
+    if (messageDisplay) {
+        messageDisplay.innerHTML = '';
+        messageDisplay.className = 'message-area'; // Reset to default class
+    }
+
     const q2Yes = document.querySelector('input[name="q2"][value="yes"]');
-    const registrationYes = document.querySelector('#registration-status-group input[name="registration"][value="yes"]');
+    const registrationStatusGroup = document.getElementById('q2-group-container'); // Ensure this ID is correct as per previous discussions
+    const registrationYesRadio = registrationStatusGroup ? registrationStatusGroup.querySelector('input[name="registration"][value="yes"]') : null;
+
     const residencyNone = document.querySelector('input[name="q3"][value="none"]');
     const q5Yes = document.querySelector('input[name="q5"][value="yes"]');
 
-    // Update global state right before checking eligibility and navigating
     q4aIsYes = document.querySelector('input[name="q4a"][value="yes"]:checked') ? true : false;
     q4bIsYes = document.querySelector('input[name="q4b"][value="yes"]:checked') ? true : false;
 
@@ -100,43 +91,56 @@ function checkEligibility() {
     const q4a = document.querySelector('input[name="q4a"]:checked');
     const q4b = document.querySelector('input[name="q4b"]:checked');
 
+    // Helper function to show messages
+    function showMessage(text, type = 'error') {
+        if (messageDisplay) {
+            messageDisplay.textContent = text;
+            messageDisplay.classList.add(type === 'error' ? 'message-error' : 'message-success');
+        }
+    }
 
     if (!q2 || !q3 || !q5 || !q4a || !q4b) {
-        alert('Please answer all eligibility questions.');
+        showMessage('Please answer all eligibility questions.');
         return;
     }
 
-    if (q2Yes && q2Yes.checked && (!registrationYes || !registrationYes.checked)) {
-        alert('To be eligible, you must be currently registered to teach in NZ if you have completed a teaching qualification.');
-        return;
+    if (q2Yes && q2Yes.checked) {
+        const registrationAnswered = registrationStatusGroup ? registrationStatusGroup.querySelector('input[name="registration"]:checked') : null;
+        if (registrationStatusGroup.style.display === 'block' && !registrationAnswered) {
+            showMessage('Please answer the question regarding your NZ teaching registration status.');
+            return;
+        }
+
+        if (registrationYesRadio && registrationYesRadio.checked) {
+            showMessage('Based on your answers, as you have completed a teaching qualification and are already registered to teach in New Zealand, you may not be eligible for this specific pathway. Please contact us to discuss your situation.');
+            return;
+        }
     }
+
     if (residencyNone && residencyNone.checked) {
-        alert('To be eligible, you must be an NZ Citizen or NZ Resident.');
+        showMessage('To be eligible, you must be an NZ Citizen or NZ Resident.');
         return;
     }
     if (!q5Yes || !q5Yes.checked) {
-        alert('To be eligible, you must have completed a Bachelor’s degree (or equivalent).');
+        showMessage('To be eligible, you must have completed a Bachelor’s degree (or equivalent).');
         return;
     }
 
-    // Always navigate to 'eligibility-success' after eligibility check
+    // If all checks passed, navigate to the success page.
+    // The 'eligibility-success' page itself serves as the "eligible message on the page".
     showPage('eligibility-success');
 }
 
-function toggleCurrentSchoolNameField() {
-    const currentSchoolNameGroup = document.getElementById('currentSchoolNameGroup');
-    const currentSchoolNameInput = document.getElementById('currentSchoolName');
+function proceedFromEligibilitySuccess() {
+    showPage('basic-details');
+}
 
-    // Display if q4a is 'yes' (using the global state)
-    if (currentSchoolNameGroup) {
-      if (q4aIsYes) {
-          currentSchoolNameGroup.style.display = 'block';
-          currentSchoolNameInput.required = true;
-      } else {
-          currentSchoolNameGroup.style.display = 'none';
-          currentSchoolNameInput.required = false;
-          currentSchoolNameInput.value = '';
-      }
+function navigateFromCVEducation() {
+    // Check the global flags set by eligibility check
+    if (q4aIsYes || q4bIsYes) {
+        showPage('school-referral-details');
+    } else {
+        showPage('preferred-subjects'); // Or whatever the next page should be if no school referral
     }
 }
 
@@ -224,7 +228,7 @@ function toggleExplanation(explanationId, isChecked) {
 function displaySummary() {
     // --- Eligibility Details ---
     document.getElementById('summary-q2').textContent = document.querySelector('input[name="q2"]:checked') ? document.querySelector('input[name="q2"]:checked').value : 'Not answered';
-    const registrationStatusGroup = document.getElementById('registration-status-group');
+    const registrationStatusGroup = document.getElementById('q2-group-container');
     const summaryRegistrationRowDisplay = document.getElementById('summary-registration-row-display');
     if (registrationStatusGroup && registrationStatusGroup.style.display !== 'none') {
         summaryRegistrationRowDisplay.style.display = 'block';
@@ -329,6 +333,9 @@ function displaySummary() {
         otherSubjectsRowDisplay.style.display = 'none';
     }
 
+    const selectedLocations = Array.from(document.querySelectorAll('input[name="location[]"]:checked'))
+                             .map(checkbox => checkbox.value);
+document.getElementById('summary-locations').textContent = selectedLocations.length > 0 ? selectedLocations.join(', ') : 'None selected';
 
     // --- Commitment to Kaupapa (from 'commitment-kaupapa' page) ---
     document.getElementById('summary-kaupapaSummary').textContent = document.getElementById('kaupapa-summary') ? document.getElementById('kaupapa-summary').value : 'N/A';

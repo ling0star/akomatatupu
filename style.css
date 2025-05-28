@@ -30,7 +30,7 @@ body {
   label {
     display: block;
     margin-bottom: 5px;
-    font-weight: bold;
+    font-weight: normal;
     font-size: 1em; /* Explicitly set font size for main question labels (e.g., 16px if body is 16px) */
   }
   
@@ -121,6 +121,7 @@ body {
     font-size: 1rem;
     transition: background-color 0.2s ease;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
   }
   
   .btn-primary {
@@ -238,6 +239,7 @@ body {
     margin-right: 5px;
     min-width: 120px;
     vertical-align: top;
+    font-weight: 600;
   }
   
   .summary-item span {
@@ -343,3 +345,66 @@ body {
   .step.completed::after { /* Line after a completed step */
     background-color: #28a745 !important; /* Ensure line is green if step is completed */
   }
+
+  .checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 10fr); /* Creates three equal columns */
+    gap: 0px; 
+}
+
+/*.checkbox-grid {
+    display: flex; /* Use flexbox for horizontal arrangement */
+    /*flex-wrap: wrap; /* Allow items to wrap to the next line if space is limited */
+    /*gap: 10px; /* Space between flex items 
+}*/
+
+/* Style for the labels within the checkbox-grid */
+.checkbox-grid label {
+    display: inline-block; /* Makes the label and its content (checkbox + text) behave like an inline block */
+    font-weight: normal; /* Ensures regular font weight */
+    margin-right: 20px; /* Adds some spacing between each checkbox item */
+    margin-bottom: 10px; /* Adds space below each item for multi-line layouts if they wrap */
+    white-space: nowrap; /* Prevents the label text from wrapping if possible, keeping it on one line with the checkbox */
+}
+
+/* Optional: Adjust input (checkbox) style if needed */
+.checkbox-grid label input[type="checkbox"] {
+    vertical-align: middle; /* Aligns the checkbox vertically with the text */
+    margin-right: 5px; /* Adds a small space between the checkbox and the text */
+}
+
+/* You might already have this, but ensure your checkbox-grid is set up to allow multiple items on a line */
+
+
+.checkbox-grid .explanation-textarea {
+    width: 150%; /* Make textarea fill the column width */
+    min-height: 20; /* Minimum height for textarea */
+    resize: horizontal; /* Allow vertical resizing */
+}
+
+.message-area {
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-size: 0.95em;
+    text-align: center;
+}
+
+.message-area:empty { /* Hide the container if there's no message */
+    display: none;
+}
+
+.message-error {
+    color: #721c24; /* Dark red */
+    background-color: #f8d7da; /* Light red */
+    border-color: #f5c6cb; /* Reddish border */
+}
+
+/* You might not need a success message directly on this page if you navigate
+   to eligibility-success, but it's here for completeness if ever needed. */
+.message-success {
+    color: #155724; /* Dark green */
+    background-color: #d4edda; /* Light green */
+    border-color: #c3e6cb; /* Greenish border */
+}
