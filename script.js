@@ -186,16 +186,16 @@ function addOtherSubject() {
     select.className = 'form-control';
     select.innerHTML = `
         <option value="">Select Other Subject</option>
-        <option value="history">History</option>
-        <option value="geography">Geography</option>
-        <option value="drama">Drama</option>
-        <option value="dance">Dance</option>
+        <option value="whakairo">Whakairo</option>
+        <option value="esol">English as a Second Language</option>
+        <option value="nz-sign-language">New Zealand Sign Language</option>
+        <option value="tokelauan">Tokelauan</option>
         <option value="art">Art</option>
-        <option value="economics">Economics</option>
-        <option value="business">Business Studies</option>
+        <option value="pacific-studies">Pacific Studies</option>
+        <option value="religious-ed">Religious Education</option>
         <option value="music">Music</option>
         <option value="physical-education">Physical Education</option>
-        <option value="english-second-language">English as a second language</option>
+        <option value="health">Health</option>
     `;
 
     const textarea = document.createElement('textarea');
